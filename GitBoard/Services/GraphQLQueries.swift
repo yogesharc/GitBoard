@@ -20,6 +20,19 @@ enum GraphQLQueries {
                         url
                     }
                 }
+                organizations(first: 20) {
+                    nodes {
+                        login
+                        projectsV2(first: 20) {
+                            nodes {
+                                id
+                                title
+                                number
+                                url
+                            }
+                        }
+                    }
+                }
             }
         }
         """

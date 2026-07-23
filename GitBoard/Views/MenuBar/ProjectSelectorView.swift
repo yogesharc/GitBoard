@@ -15,8 +15,15 @@ struct ProjectSelectorView: View {
             }
         )) {
             ForEach(store.projects) { project in
-                Text(project.title)
-                    .tag(project.id)
+                HStack {
+                    Text(project.title)
+                    if let owner = project.owner {
+                        Text(owner)
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .tag(project.id)
             }
         }
         .pickerStyle(.menu)

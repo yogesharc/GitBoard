@@ -88,6 +88,7 @@ final class ProjectStore {
                     title: projects[index].title,
                     number: projects[index].number,
                     url: projects[index].url,
+                    owner: projects[index].owner,
                     statusField: detailedProject.statusField,
                     items: detailedProject.items
                 )
@@ -189,6 +190,7 @@ final class ProjectStore {
             title: project.title,
             number: project.number,
             url: project.url,
+            owner: project.owner,
             statusField: project.statusField,
             items: newItems
         )
@@ -266,6 +268,7 @@ final class ProjectStore {
             title: project.title,
             number: project.number,
             url: project.url,
+            owner: project.owner,
             statusField: project.statusField,
             items: newItems
         )
@@ -314,6 +317,7 @@ final class ProjectStore {
             title: project.title,
             number: project.number,
             url: project.url,
+            owner: project.owner,
             statusField: project.statusField,
             items: newItems
         )

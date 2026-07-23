@@ -158,14 +158,35 @@ actor GitHubService {
 
         do {
             let response = try JSONDecoder().decode(ProjectsListResponse.self, from: data)
-            return response.data.viewer.projectsV2.nodes.map { node in
+
+            // Personal projects (owner = nil)
+            var allProjects = response.data.viewer.projectsV2.nodes.map { node in
                 Project(
                     id: node.id,
                     title: node.title,
                     number: node.number,
-                    url: node.url
+                    url: node.url,
+                    owner: nil
                 )
             }
+
+            // Organization projects
+            if let orgs = response.data.viewer.organizations {
+                for org in orgs.nodes {
+                    let orgProjects = org.projectsV2.nodes.map { node in
+                        Project(
+                            id: node.id,
+                            title: node.title,
+                            number: node.number,
+                            url: node.url,
+                            owner: org.login
+                        )
+                    }
+                    allProjects.append(contentsOf: orgProjects)
+                }
+            }
+
+            return allProjects
         } catch {
             throw GitHubError.decodingError(error.localizedDescription)
         }
