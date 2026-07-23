@@ -5,14 +5,16 @@ struct Project: Identifiable, Codable, Hashable {
     let title: String
     let number: Int
     let url: String
+    var owner: String?
     var statusField: StatusField?
     var items: [ProjectItem]
 
-    init(id: String, title: String, number: Int, url: String, statusField: StatusField? = nil, items: [ProjectItem] = []) {
+    init(id: String, title: String, number: Int, url: String, owner: String? = nil, statusField: StatusField? = nil, items: [ProjectItem] = []) {
         self.id = id
         self.title = title
         self.number = number
         self.url = url
+        self.owner = owner
         self.statusField = statusField
         self.items = items
     }
@@ -56,6 +58,16 @@ struct ProjectsListResponse: Codable {
     }
 
     struct Viewer: Codable {
+        let projectsV2: ProjectsConnection
+        let organizations: OrganizationsConnection?
+    }
+
+    struct OrganizationsConnection: Codable {
+        let nodes: [OrganizationNode]
+    }
+
+    struct OrganizationNode: Codable {
+        let login: String
         let projectsV2: ProjectsConnection
     }
 
